@@ -1,4 +1,2 @@
-myFED2
-======
-
-Lectures frontend development 2.
+# Frontend 2 - CMD
+*In this repository you'll find my assignments and webapp I created for the lectures of Frontend 2.*
