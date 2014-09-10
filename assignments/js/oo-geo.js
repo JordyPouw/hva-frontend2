@@ -1,9 +1,10 @@
 /**
-* APP OBJECT
+* CONTROLLER OBJECT
 *   init: function()
 *
 *
 * GPS OBJECT
+*   init: function()
 *   EventTarget: function()
 *   startInterval: function(event)
 *   updatePosition: function()
@@ -39,6 +40,8 @@
 *   Copyleft 2012, all wrongs reversed.
 **/
 
+var CMDAanGeo = CMDAanGeo || {};
+
 (function(){
 
 
@@ -53,7 +56,19 @@
     var locatieRij = markerRij = [];
 
 
-    var app = {
+    // $ controller object
+    var CMDAanGeo.controller = {
+
+        // Test of GPS beschikbaar is (via geo.js) en vuur een event af
+        init: function(){
+            gps.init();
+        }
+
+    };
+
+
+    // $ gps object
+    var CMDAanGeo.gps = {
 
         // Test of GPS beschikbaar is (via geo.js) en vuur een event af
         init: function(){
@@ -63,13 +78,7 @@
             ET.addListener(GPS_UNAVAILABLE, function(){debugMessage('GPS is niet beschikbaar.')});
 
             (geo_position_js.init())?ET.fire(GPS_AVAILABLE):ET.fire(GPS_UNAVAILABLE);
-        }
-
-    };
-
-
-    // $ gps object
-    var gps = {
+        },
 
         // Event functies - bron: http://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/ Copyright (c) 2010 Nicholas C. Zakas. All rights reserved. MIT License
         // Gebruik: ET.addListener('foo', handleEvent); ET.fire('event_name'); ET.removeListener('foo', handleEvent);
@@ -151,7 +160,7 @@
      *  @param canvasID:string - het id van het HTML element waar de
      *      kaart in ge-rendered moet worden, <div> of <canvas>
      **/
-    var googleMaps = { 
+    var CMDAanGeo.googleMaps = { 
 
         generateMap: function(myOptions, canvasId){
         // TODO: Kan ik hier asynchroon nog de google maps api aanroepen? dit scheelt calls
@@ -217,7 +226,7 @@
 
 
     // $ position object
-    var position = {
+    var CMDAanGeo.position = {
 
         isNumber: function(n) {
           return !isNaN(parseFloat(n)) && isFinite(n);
@@ -235,7 +244,7 @@
 
 
     // $ debugging object
-    var debugging = {
+    var CMDAanGeo.debugging = {
 
         geoErrorHandler: function(code, message) {
             debugMessage('geo.js error '+code+': '+message);
