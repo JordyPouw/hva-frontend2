@@ -5,26 +5,26 @@
 *
 * GPS OBJECT
 *   EventTarget: function()
-*   _start_interval: function(event)
-*   _update_position: function()
-*   _set_position: function(position)
-*   _check_locations: function(event)
-*   _calculate_distance: function(p1, p2)
+*   startInterval: function(event)
+*   updatePosition: function()
+*   setPosition: function(position)
+*   checkLocations: function(event)
+*   calculateDistance: function(p1, p2)
 *
 *
 * MAP OBJECT
-*   generate_map: function(myOptions, canvasId)
+*   generateMap: function(myOptions, canvasId)
 *
 *
 * POSITION OBJECT
 *   isNumber: function(n)
-*   update_positie: function(event)
+*   updatePositie: function(event)
 *
 *
 * DEBUG OBJECT
-*   _geo_error_handler: function(code, message)
-*   debug_message: function(message)
-*   set_custom_debugging: function(debugId)
+*   geoErrorHandler: function(code, message)
+*   debugMessage: function(message)
+*   setCustomDebugging: function(debugId)
 **/
 
 
@@ -57,10 +57,10 @@
 
         // Test of GPS beschikbaar is (via geo.js) en vuur een event af
         init: function(){
-            debug_message("Controleer of GPS beschikbaar is...");
+            debugMessage("Controleer of GPS beschikbaar is...");
 
-            ET.addListener(GPS_AVAILABLE, _start_interval);
-            ET.addListener(GPS_UNAVAILABLE, function(){debug_message('GPS is niet beschikbaar.')});
+            ET.addListener(GPS_AVAILABLE, startInterval);
+            ET.addListener(GPS_UNAVAILABLE, function(){debugMessage('GPS is niet beschikbaar.')});
 
             (geo_position_js.init())?ET.fire(GPS_AVAILABLE):ET.fire(GPS_UNAVAILABLE);
         }
@@ -81,33 +81,33 @@
         this._listeners[a],d=0,e=b.length;d<e;d++)if(b[d]===c){b.splice(d,1);break}}}; var ET = new EventTarget();    
 
         // Start een interval welke op basis van REFRESH_RATE de positie updated
-        _start_interval: function(event){
-            debug_message("GPS is beschikbaar, vraag positie.");
-            _update_position();
-            interval = self.setInterval(_update_position, REFRESH_RATE);
-            ET.addListener(POSITION_UPDATED, _check_locations);
+        startInterval: function(event){
+            debugMessage("GPS is beschikbaar, vraag positie.");
+            updatePosition();
+            interval = self.setInterval(updatePosition, REFRESH_RATE);
+            ET.addListener(POSITION_UPDATED, checkLocations);
         },
 
         // Vraag de huidige positie aan geo.js, stel een callback in voor het resultaat
-        _update_position: function(){
+        updatePosition: function(){
             intervalCounter++;
-            geo_position_js.getCurrentPosition(_set_position, _geo_error_handler, {enableHighAccuracy:true});
+            geo_position_js.getCurrentPosition(setPosition, geoErrorHandler, {enableHighAccuracy:true});
         },
 
         // Callback functie voor het instellen van de huidige positie, vuurt een event af
-        _set_position: function(position){
+        setPosition: function(position){
             currentPosition = position;
             ET.fire("POSITION_UPDATED");
-            debug_message(intervalCounter+" positie lat:"+position.coords.latitude+" long:"+position.coords.longitude);
+            debugMessage(intervalCounter+" positie lat:"+position.coords.latitude+" long:"+position.coords.longitude);
         },
 
         // Controleer de locaties en verwijs naar een andere pagina als we op een locatie zijn
-        _check_locations: function(event){
+        checkLocations: function(event){
             // Liefst buiten google maps om... maar helaas, ze hebben alle coole functies
             for (var i = 0; i < locaties.length; i++) {
                 var locatie = {coords:{latitude: locaties[i][3],longitude: locaties[i][4]}};
 
-                if(_calculate_distance(locatie, currentPosition)<locaties[i][2]){
+                if(calculateDistance(locatie, currentPosition)<locaties[i][2]){
 
                     // Controle of we NU op die locatie zijn, zo niet gaan we naar de betreffende page
                     if(window.location!=locaties[i][1] && localStorage[locaties[i][0]]=="false"){
@@ -115,20 +115,20 @@
                         try {
                             (localStorage[locaties[i][0]]=="false")?localStorage[locaties[i][0]]=1:localStorage[locaties[i][0]]++;
                         } catch(error) {
-                            debug_message("Localstorage kan niet aangesproken worden: "+error);
+                            debugMessage("Localstorage kan niet aangesproken worden: "+error);
                         }
 
         // TODO: Animeer de betreffende marker
 
                         window.location = locaties[i][1];
-                        debug_message("Speler is binnen een straal van "+ locaties[i][2] +" meter van "+locaties[i][0]);
+                        debugMessage("Speler is binnen een straal van "+ locaties[i][2] +" meter van "+locaties[i][0]);
                     }
                 }
             }
         },
 
         // Bereken het verchil in meters tussen twee punten
-        _calculate_distance: function(p1, p2){
+        calculateDistance: function(p1, p2){
             var pos1 = new google.maps.LatLng(p1.coords.latitude, p1.coords.longitude);
             var pos2 = new google.maps.LatLng(p2.coords.latitude, p2.coords.longitude);
             return Math.round(google.maps.geometry.spherical.computeDistanceBetween(pos1, pos2), 0);
@@ -140,7 +140,7 @@
     /**
      * $ google maps object
      *
-     * generate_map(myOptions, canvasId)
+     * generateMap(myOptions, canvasId)
      *  roept op basis van meegegeven opties de google maps API aan
      *  om een kaart te genereren en plaatst deze in het HTML element
      *  wat aangeduid wordt door het meegegeven id.
@@ -153,21 +153,21 @@
      **/
     var googleMaps = { 
 
-        generate_map: function(myOptions, canvasId){
+        generateMap: function(myOptions, canvasId){
         // TODO: Kan ik hier asynchroon nog de google maps api aanroepen? dit scheelt calls
-            debug_message("Genereer een Google Maps kaart en toon deze in #"+canvasId)
+            debugMessage("Genereer een Google Maps kaart en toon deze in #"+canvasId)
             map = new google.maps.Map(document.getElementById(canvasId), myOptions);
 
             var routeList = [];
             // Voeg de markers toe aan de map afhankelijk van het tourtype
-            debug_message("Locaties intekenen, tourtype is: "+tourType);
+            debugMessage("Locaties intekenen, tourtype is: "+tourType);
             for (var i = 0; i < locaties.length; i++) {
 
                 // Met kudos aan Tomas Harkema, probeer local storage, als het bestaat, voeg de locaties toe
                 try {
                     (localStorage.visited==undefined||isNumber(localStorage.visited))?localStorage[locaties[i][0]]=false:null;
                 } catch (error) {
-                    debug_message("Localstorage kan niet aangesproken worden: "+error);
+                    debugMessage("Localstorage kan niet aangesproken worden: "+error);
                 }
 
                 var markerLatLng = new google.maps.LatLng(locaties[i][3], locaties[i][4]);
@@ -189,7 +189,7 @@
         // TODO: Kleur aanpassen op het huidige punt van de tour
             if(tourType == LINEAIR){
                 // Trek lijnen tussen de punten
-                debug_message("Route intekenen");
+                debugMessage("Route intekenen");
                 var route = new google.maps.Polyline({
                     clickable: false,
                     map: map,
@@ -210,7 +210,7 @@
             });
 
             // Zorg dat de kaart geupdated wordt als het POSITION_UPDATED event afgevuurd wordt
-            ET.addListener(POSITION_UPDATED, update_positie);
+            ET.addListener(POSITION_UPDATED, updatePositie);
         }
 
     };
@@ -224,7 +224,7 @@
         },
 
         // Update de positie van de gebruiker op de kaart
-        update_positie: function(event){
+        updatePositie: function(event){
             // use currentPosition to center the map
             var newPos = new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
             map.setCenter(newPos);
@@ -237,15 +237,15 @@
     // $ debugging object
     var debugging = {
 
-        _geo_error_handler: function(code, message) {
-            debug_message('geo.js error '+code+': '+message);
+        geoErrorHandler: function(code, message) {
+            debugMessage('geo.js error '+code+': '+message);
         },
 
-        debug_message: function(message){
+        debugMessage: function(message){
             (customDebugging && debugId)?document.getElementById(debugId).innerHTML:console.log(message);
         },
 
-        set_custom_debugging: function(debugId){
+        setCustomDebugging: function(debugId){
             debugId = this.debugId;
             customDebugging = true;
         }
