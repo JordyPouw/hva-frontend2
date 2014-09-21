@@ -1,8 +1,0 @@
-node_modules
-*.sublime-project
-*.sublime-workspace
-src/*.js
-.DS_Store
-docs
-.grunt
-.tmp
