@@ -83,7 +83,7 @@ var movieApp = movieApp || {};
 		toggle: function(section){
 			var sections = document.querySelectorAll('[data-route]');
 			for (i = 0; i < sections.length; i++){
-				document.querySelector('[data-route]').classList.remove('is-active');
+				sections[i].classList.remove('is-active');
 			}
 			document.querySelector(section).classList.add('is-active');
 		}
