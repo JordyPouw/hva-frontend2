@@ -1,0 +1,7 @@
+[data-route] {
+	display: none;
+}
+
+.is-active {
+	display: block;
+}

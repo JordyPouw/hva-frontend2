@@ -52,9 +52,12 @@ var movieApp = movieApp || {};
 			routie({
 				'/about': function() {
 					console.log("about");
+					movieApp.sections.toggle("[data-route='about']");
 				},
+
 				'/movies': function() {
 					console.log("movies");
+					movieApp.sections.toggle("[data-route='movies']");
 				}
 			});
 		}
@@ -70,11 +73,19 @@ var movieApp = movieApp || {};
 		},
 
 		about: function(){
-			Transparency.render(document.getElementById('about'), movieApp.content.about);
+			Transparency.render(document.querySelector("[data-route='about']"), movieApp.content.about);
 		},
 
 		movies: function(){
-			Transparency.render(document.getElementById('movies'), movieApp.content.movies, movieApp.content.directives);
+			Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+		},
+
+		toggle: function(section){
+			var sections = document.querySelectorAll('[data-route]');
+			for (i = 0; i < sections.length; i++){
+				document.querySelector('[data-route]').classList.remove('is-active');
+			}
+			document.querySelector(section).classList.add('is-active');
 		}
 	};
 
