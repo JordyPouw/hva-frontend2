@@ -68,8 +68,8 @@ var movieApp = movieApp || {};
 	movieApp.sections = {
 
 		init: function(){
-			movieApp.sections.about();
-			movieApp.sections.movies();
+			this.about();
+			this.movies();
 		},
 
 		about: function(){
@@ -90,10 +90,8 @@ var movieApp = movieApp || {};
 	};
 
 
-	// $ dom ready.
-	document.addEventListener("DOMContentLoaded", function() {
-		movieApp.controller.init();
-	});
+	// $ initialize the app.
+	movieApp.controller.init();
 
 
 })(); // end self invoking anonymous function.
