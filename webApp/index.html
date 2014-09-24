@@ -1,65 +1,56 @@
-<!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jordy's Favorite Movies</title>
-    <meta name="description" content="Frontend 2 Web App">
+    <meta name="description" content="Web App V1, basic JavaScript Skeleton">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
-    <link rel="stylesheet" href="css/main.css">
+    <title>My Favorite Movies</title>
+  	<link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    
-    <div class="grid12">
-    <main id="content">
 
-      <section id="about">
-        <section>
-          <header>
-            <h1 data-bind="title"></h1>
-            <p data-bind="description"></p>
-          </header>
-        </section>
-      </section> <!-- id="about" -->
-
-      <h1>Favorite movies</h1>  
-      <section id="movies">
-
-        <article>
-          <header>
-            <h1 data-bind="title"></h1>
-            <em>Release date: <time data-bind="releaseDate"></time></em>
-          </header>
-
-          <figure>
-            <img data-bind="cover" alt="">
-          </figure>
-
-          <p data-bind="description"></p>
-        </article>      
-      </section> <!-- end id="movies" -->
-
-    </main>
-  
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#movies">Movies</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  </div> <!-- end .grid12 -->
+		<header>
+			<nav>
+				<ul>
+					<li><a href="#/about">About</a></li>
+					<li><a href="#/movies">Movies</a></li>
+				</ul>
+			</nav>
+		</header>
 
 
+		<main>
+			<section data-route="about">
+				<h1 data-bind="pageTitle"></h1>
+				<section data-bind="descriptions">
+					<p data-bind="description"></p>
+				</section>
+			</section> <!-- end section about. -->
 
-  <!-- Scripts. -->
-  <script src="bower_components/routie/dist/routie.min.js"></script>
-  <script src="bower_components/transparency/dist/transparency.min.js"></script>
+			<section data-route="movies">
+				<h1 data-bind="pageTitle"></h1>
+				<section data-bind="myMovies">
+					<article>
+						<header>
+							<h1 data-bind="title"></h1>
+							<em>Release date: <time data-bind="releaseDate"></time></em>
+						</header>
+						<figure>
+							<img data-bind="cover">
+						</figure>
+						<p data-bind="description"></p>
+					</article>
+				</section>		
+			</section> <!-- end section movies. -->
+		</main>
+	
+
+	<!-- dependencies scripts. -->
+  <script src="dependencies/routie/dist/routie.min.js"></script>
+  <script src="dependencies/transparency/dist/transparency.min.js"></script>
+
+	<!-- app scripts. -->
   <script src="js/app.js"></script>
 
   </body>
