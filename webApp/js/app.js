@@ -9,33 +9,31 @@ var movieApp = movieApp || {};
 		about: {
 			pageTitle: "About this app",
 			descriptions: [
-				{description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, quidem."},
-				{description: "Magnam voluptate quae incidunt, harum officia laboriosam praesentium."},
+				{description: "This single-page application is made during the Frontend 2 course for my study. It is written in Object Oriented Javascript and uses the MVC pattern. It uses the movies API from Dennis Tel."},
+				{description: "The app is written in vanilla JavaScript and a couple of plug-ins. These plug-ins are routie.js to create the router, and transparency as templating engine. Its styling is written with LESS."},
 				{description: "Ipsa quasi minima enim ut, dolor dolores rem commodi, id quo quam nam."},
 			]
 		},
 
 		movies: {
 			pageTitle: "Favorite movies",
-			myMovies: [
-				{ title: "Shawshank Redemption", releaseDate: "14 October 1994", description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.", link: "img/shawshank-redemption.jpg" },
-				{ title: "The Godfather", releaseDate: "24 March 1972", description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", link: "img/the-godfather.jpg" },
-				{ title: "Pulp Fiction", releaseDate: "14 October 1994", description: "The lives of two mob hit men, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.", link: "img/pulp-fiction.jpg" },
-				{ title: "The Dark Knight", releaseDate: "18 July 2008", description: "When Batman, Gordon and Harvey Dent launch an assault on the mob, they let the clown out of the box, the Joker, bent on turning Gotham on itself and bringing any heroes down to his level.", link: "img/the-dark-knight.jpg" }
-			]
+			myMovies: []
 		},
 
 		directives: {
 			myMovies:{
-				cover: {
-					src: function() { return this.link; }
+				movieCover: {
+					src: function() { return this.cover; }
+				},
+				genre: {
+					text: function() { return this.value; }
 				}
 			}
 		}
 	};
 
 
-	// $ controller object.
+	// $ 2: controller object.
 	movieApp.controller = {
 
 		init: function(){
@@ -46,7 +44,7 @@ var movieApp = movieApp || {};
 	};
 
 
-	// $ router object.
+	// $ 3.1: router object.
 	movieApp.router = {
 
 		init: function(){
@@ -59,46 +57,50 @@ var movieApp = movieApp || {};
 				'/movies': function() {
 					console.log("movies");
 					movieApp.sections.toggle("[data-route='movies']");
+				},
+
+				'*': function(){
+					console.log("default");
+					movieApp.sections.toggle("[data-route='about']");
 				}
 			});
 		}
 	};
 
 
-	// $ ajax object.
+	// $ 3.0: ajax object.
 	movieApp.ajax = {
 
 		getData: function () {
 			var req = new XMLHttpRequest();
-			req.open('GET', 'http://dennistel.nl/movies', true);
-			req.setRequestHeader('Content-type','application/json');
-
 			req.onreadystatechange = function() {
 				if (req.readyState === 4) {
 					if (req.status === 200 || req.status === 201) {
 						var movies = JSON.parse(req.responseText);
-						console.log(movies);
-            for (var i = movies.length - 1; i >= 0; i--){
+            for (var i = 0; i < movies.length; i++){
 							movieApp.content.movies.myMovies.push(movies[i]);
             }
             console.log(movieApp.content.movies);
+            movieApp.sections.movies();
 					}
 				}
 				else {
 					//fail.
 				}
 			};
+
+			req.open('GET', 'http://dennistel.nl/movies', true);
+			req.setRequestHeader('Content-type','application/json');
 			req.send(null);
 		}
 	};
 
 
-	// $ sections object.
+	// $ 3.2: sections object.
 	movieApp.sections = {
 
 		init: function(){
 			this.about();
-			this.movies();
 		},
 
 		about: function(){
@@ -119,7 +121,7 @@ var movieApp = movieApp || {};
 	};
 
 
-	// $ initialize the app.
+	// $ 1: initialize the app.
 	movieApp.controller.init();
 
 

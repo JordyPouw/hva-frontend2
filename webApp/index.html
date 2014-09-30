@@ -34,12 +34,15 @@
 					<article>
 						<header>
 							<h1 data-bind="title"></h1>
-							<em>Release date: <time data-bind="releaseDate"></time></em>
+							<em>Release date: <time data-bind="release_date"></time></em>
 						</header>
 						<figure>
-							<img data-bind="cover">
+							<img data-bind="movieCover">
 						</figure>
-						<p data-bind="description"></p>
+						<p data-bind="plot"></p>
+						<ul data-bind="genres">
+							<li data-bind="genre"></li>
+						</ul>
 					</article>
 				</section>		
 			</section> <!-- end section movies. -->
