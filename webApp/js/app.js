@@ -9,7 +9,7 @@ var movieApp = movieApp || {};
 		about: {
 			pageTitle: "About this app",
 			descriptions: [
-				{description: "This single-page application is made during the Frontend 2 course for my study. It is written in Object Oriented Javascript and uses the MVC pattern. It uses the movies API from Dennis Tel."},
+				{description: "This single-page application is made during the Frontend 2 course for my study. It is written in Object Oriented Javascript and uses the MVC pattern. It uses the movies API from Dennis Tel. The data is stored locally using HTML5 localStorage."},
 				{description: "The app is written in vanilla JavaScript and a couple of plug-ins. These plug-ins are routie.js to create the router, and transparency as templating engine. Its styling is written with LESS."},
 				{description: "Ipsa quasi minima enim ut, dolor dolores rem commodi, id quo quam nam."},
 			]
@@ -72,26 +72,39 @@ var movieApp = movieApp || {};
 	movieApp.ajax = {
 
 		getData: function () {
-			var req = new XMLHttpRequest();
-			req.onreadystatechange = function() {
-				if (req.readyState === 4) {
-					if (req.status === 200 || req.status === 201) {
-						var movies = JSON.parse(req.responseText);
-            for (var i = 0; i < movies.length; i++){
-							movieApp.content.movies.myMovies.push(movies[i]);
-            }
-            console.log(movieApp.content.movies);
-            movieApp.sections.movies();
+      if ( localStorage.getItem('movieAppData')){
+				var localMovies = JSON.parse(localStorage.getItem('movieAppData'));
+				for (var i = 0; i < localMovies.length; i++){
+					movieApp.content.movies.myMovies.push(localMovies[i]);
+				}
+				console.log(movieApp.content.movies);
+				console.log('gettingg it local babyyy');
+				movieApp.sections.movies();
+      }
+      else {
+				var req = new XMLHttpRequest();
+				req.onreadystatechange = function() {
+					if (req.readyState === 4) {
+						if (req.status === 200 || req.status === 201) {
+							var movies = JSON.parse(req.responseText);
+							for (var i = 0; i < movies.length; i++){
+								movieApp.content.movies.myMovies.push(movies[i]);
+							}
+							console.log(movieApp.content.movies);
+							console.log('gettingg it from the server babyyy');
+							movieApp.sections.movies();
+							localStorage.setItem('movieAppData', JSON.stringify(movieApp.content.movies.myMovies));
+						}
 					}
-				}
-				else {
-					//fail.
-				}
-			};
+					else {
+						//fail.
+					}
+				};
 
-			req.open('GET', 'http://dennistel.nl/movies', true);
-			req.setRequestHeader('Content-type','application/json');
-			req.send(null);
+				req.open('GET', 'http://dennistel.nl/movies', true);
+				req.setRequestHeader('Content-type','application/json');
+				req.send(null);
+			}
 		}
 	};
 
