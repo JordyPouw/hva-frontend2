@@ -39,8 +39,8 @@ var movieApp = movieApp || {};
 	movieApp.controller = {
 
 		init: function(){
+			movieApp.ajax.getData();
 			movieApp.router.init();
-			movieApp.ajax.init();
 			movieApp.sections.init();
 		}
 	};
@@ -63,28 +63,34 @@ var movieApp = movieApp || {};
 			});
 		}
 	};
-	
+
 
 	// $ ajax object.
-	// movieApp.ajax = {
+	movieApp.ajax = {
 
-	// 	init: function () {
+		getData: function () {
+			var req = new XMLHttpRequest();
+			req.open('GET', 'http://dennistel.nl/movies', true);
+			req.setRequestHeader('Content-type','application/json');
 
-	// 		var req = new XMLHttpRequest();
-	// 		req.open('GET', 'http://dennistel.nl/movies', true);
-	// 		req.setRequestHeader('Content-type','application/json');
-	// 		req.send(null);
-
-	// 		req.onreadystatechange = function() {
-	// 			if (req.readyState === 4) {
-	// 				if (req.status === 200 || req.status === 201) {
-	// 					success(req.responseText);
-	// 				}
-	// 			}
-	// 		};
-	// 		console.log(req.response);
-	// 	}
-	// };
+			req.onreadystatechange = function() {
+				if (req.readyState === 4) {
+					if (req.status === 200 || req.status === 201) {
+						var movies = JSON.parse(req.responseText);
+						console.log(movies);
+            for (var i = movies.length - 1; i >= 0; i--){
+							movieApp.content.movies.myMovies.push(movies[i]);
+            }
+            console.log(movieApp.content.movies);
+					}
+				}
+				else {
+					//fail.
+				}
+			};
+			req.send(null);
+		}
+	};
 
 
 	// $ sections object.
