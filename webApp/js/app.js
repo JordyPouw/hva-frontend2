@@ -25,26 +25,71 @@ var movieApp = movieApp || {};
 				movieCover: {
 					src: function() { return this.cover; }
 				},
-				genre: {
-					text: function() { return this.value; }
+
+				details: {
+					href: function() { return "#/movies/" + this.id; }
 				}
 			}
 		}
 	};
 
 
-	// $ 2: controller object.
+	// $ 3.0: ajax object.
+	movieApp.ajax = {
+
+		getData: function (type, url, success) {
+      if (false && localStorage.getItem('movieAppData')){
+				movieApp.localService.init();
+      }
+
+      else {
+				var req = new XMLHttpRequest();
+					req.onreadystatechange = function() {
+						if (req.readyState === 4) {
+							if (req.status === 200 || req.status === 201) {
+								success(JSON.parse(req.responseText));
+							}
+						}
+
+						else {
+							//loading.
+							console.log("loading");
+						}
+					};
+
+				req.open(type, url, true);
+				req.setRequestHeader('Content-type','application/json');
+				req.send(null);
+			}
+		}
+	};
+
+
+	// $ 3.1 local storage object.
+	movieApp.localService = {
+
+		init: function(){
+			var localMovies = JSON.parse(localStorage.getItem('movieAppData'));
+			for (var i = 0; i < localMovies.length; i++){
+				movieApp.content.movies.myMovies.push(localMovies[i]);
+			}
+			console.log(movieApp.content.movies.myMovies, 'gettingg it local babyyy');
+			Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+		}
+	};
+
+
+	// $ 2.0: controller object.
 	movieApp.controller = {
 
 		init: function(){
-			movieApp.ajax.getData();
 			movieApp.router.init();
 			movieApp.sections.init();
 		}
 	};
 
 
-	// $ 3.1: router object.
+	// $ 4.0: router object.
 	movieApp.router = {
 
 		init: function(){
@@ -59,6 +104,12 @@ var movieApp = movieApp || {};
 					movieApp.sections.toggle("[data-route='movies']");
 				},
 
+				'/movies/:id': function(id) {
+					console.log("specific movie");
+					movieApp.sections.movie(id);
+					movieApp.sections.toggle("[data-route='movie']");
+				},
+
 				'*': function(){
 					console.log("default");
 					movieApp.sections.toggle("[data-route='about']");
@@ -68,52 +119,12 @@ var movieApp = movieApp || {};
 	};
 
 
-	// $ 3.0: ajax object.
-	movieApp.ajax = {
-
-		getData: function () {
-      if ( localStorage.getItem('movieAppData')){
-				var localMovies = JSON.parse(localStorage.getItem('movieAppData'));
-				for (var i = 0; i < localMovies.length; i++){
-					movieApp.content.movies.myMovies.push(localMovies[i]);
-				}
-				console.log(movieApp.content.movies);
-				console.log('gettingg it local babyyy');
-				movieApp.sections.movies();
-      }
-      else {
-				var req = new XMLHttpRequest();
-				req.onreadystatechange = function() {
-					if (req.readyState === 4) {
-						if (req.status === 200 || req.status === 201) {
-							var movies = JSON.parse(req.responseText);
-							for (var i = 0; i < movies.length; i++){
-								movieApp.content.movies.myMovies.push(movies[i]);
-							}
-							console.log(movieApp.content.movies);
-							console.log('gettingg it from the server babyyy');
-							movieApp.sections.movies();
-							localStorage.setItem('movieAppData', JSON.stringify(movieApp.content.movies.myMovies));
-						}
-					}
-					else {
-						//fail.
-					}
-				};
-
-				req.open('GET', 'http://dennistel.nl/movies', true);
-				req.setRequestHeader('Content-type','application/json');
-				req.send(null);
-			}
-		}
-	};
-
-
-	// $ 3.2: sections object.
+	// $ 5.0: sections object.
 	movieApp.sections = {
 
 		init: function(){
 			this.about();
+			this.movies();
 		},
 
 		about: function(){
@@ -121,7 +132,42 @@ var movieApp = movieApp || {};
 		},
 
 		movies: function(){
-			Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+			var self = this;
+			document.querySelector(".loading").classList.add('is-active');
+			movieApp.ajax.getData('GET', "http://dennistel.nl/movies/", self.moviesFetched);
+		},
+
+			moviesFetched: function(movies){
+				for (var i = 0; i < movies.length; i++){
+					movieApp.content.movies.myMovies.push(movies[i]);
+				}
+				console.log(movieApp.content.movies.myMovies, 'gettingg it from the server babyyy');
+				localStorage.setItem('movieAppData', JSON.stringify(movieApp.content.movies.myMovies));
+				movieApp.sections.combineReviews();
+				Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+				setTimeout(function(){document.querySelector(".loading").classList.remove('is-active');}, 3000);
+			},
+
+		combineReviews: function(){
+
+				_.map(movieApp.content.movies.myMovies, function (movie, i){
+					movie.reviews   = _.reduce(movie.reviews,   function(memo, review){   return memo + review.score; }, 0) / movie.reviews.length;
+					// movie.directors = _.reduce(movie.directors, function(memo, director){ return memo + director.name + ' '; }, '');
+					// movie.actors    = _.reduce(movie.actors,    function(memo, actor){    return memo + actor.actor_name + ', ';}, '');
+					return movie;
+				});
+
+		},
+
+		movie: function(id){
+			Transparency.render(document.querySelector("[data-route='movie']"), movieApp.content.movies.myMovies[id-1], movieApp.content.directives);
+
+			var movieDetails = document.querySelector("[data-route='movie']");
+			var mc = new Hammer(movieDetails);
+			mc.on("panleft panright", function() {
+				console.log("Can swipe this! oh-oh oh oh oh-oh-oh");
+				movieApp.sections.toggle("[data-route='movies']");
+			});
 		},
 
 		toggle: function(section){
@@ -134,7 +180,7 @@ var movieApp = movieApp || {};
 	};
 
 
-	// $ 1: initialize the app.
+	// $ 1.0: initialize the app.
 	movieApp.controller.init();
 
 

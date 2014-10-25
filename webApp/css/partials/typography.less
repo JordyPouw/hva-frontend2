@@ -2,40 +2,27 @@
 // $ TYPOGRAPHY
 // =====================================================================================
 
-
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
   text-rendering: optimizeLegibility;
   font-weight: @bold;
   margin: 0;
 }
 
 h1 {
-  font-size: 2.875em; /* 46px */
+  font-size: @base-heading1;
 }
 
 h2 {
-  font-size: 2.250em; /* 36px */
+  font-size: @base-heading2;
 }
 
 h3 {
-  font-size: 1.750em; /* 28px */
-}
-
-h4 {
-  font-size: 1.375em; /* 22px */
-}
-
-h5 {
-  font-size: 1.125em; /* 18px */
-}
-
-h6 {
-  font-size: 1em; /* 16px */
+  font-size: @base-heading3;
 }
 
 p {
   text-rendering: optimizeLegibility;
-  font-size: 1em; /* 16px */
+  font-size: @base-paragraph;
   margin: 0 0 0.625em;
 }
 
@@ -46,19 +33,17 @@ blockquote {
 }
 
 ::-moz-selection {
-  background: #b3d4fc;
+  background: @base-selection-bg-color;
   text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
+  background: @base-selection-bg-color;
   text-shadow: none;
 }
 
 
 // $ Links
-// ============================================================
-
 a {
   color: @base-link-color;
   text-decoration: none;
@@ -71,5 +56,5 @@ a:hover {
 
 a:hover, 
 a:focus {
-  color: @hover-link-color;
+  color: @base-hover-link-color;
 }

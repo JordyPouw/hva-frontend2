@@ -10,11 +10,15 @@
   </head>
   <body>
 
-		<header>
+  	<div class="loading">
+  		<img src="img/loading.svg">
+  	</div>
+
+		<header class="mainNav">
 			<nav>
-				<ul>
-					<li><a href="#/about">About</a></li>
-					<li><a href="#/movies">Movies</a></li>
+				<ul class="u-nav">
+					<li class="u-nav-item"><a href="#/about">About</a></li>
+					<li class="u-nav-item"><a href="#/movies">&#10084; Movies</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -29,29 +33,74 @@
 			</section> <!-- end section about. -->
 
 			<section data-route="movies">
-				<h1 data-bind="pageTitle"></h1>
+				<!-- <h1 data-bind="pageTitle"></h1> -->
+<!-- 				<nav class="genreNav">
+					<ul class="u-nav">
+						<li class="u-nav-item"><a class="hamburgerIcon" href="#">&#x2261;</a>
+							<ul class="u-nav-subnav">
+								<li><a data-bind="genre">Action</a></li>
+								<li><a data-bind="genre">Adventure</a></li>
+								<li><a data-bind="genre">Crime</a></li>
+								<li><a data-bind="genre">Drama</a></li>
+								<li><a data-bind="genre">Horror</a></li>
+								<li><a data-bind="genre">Thriller</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav> -->
 				<section data-bind="myMovies">
-					<article>
+					<article class="movie">
 						<header>
 							<h1 data-bind="title"></h1>
-							<em>Release date: <time data-bind="release_date"></time></em>
+							<!-- <em>Release date: <time data-bind="release_date"></time></em> -->
 						</header>
 						<figure>
 							<img data-bind="movieCover">
 						</figure>
-						<p data-bind="plot"></p>
-						<ul data-bind="genres">
-							<li data-bind="genre"></li>
-						</ul>
+						<p data-bind="simple_plot"></p>
+						<aside>
+							<a data-bind="details">More details...</a>
+							<p class="review">Review: <span data-bind="reviews"></span></p>
+						</aside>
 					</article>
 				</section>		
 			</section> <!-- end section movies. -->
+
+			<section data-route="movie">
+				<section data-bind="myMovies">
+					<article class="detailsMovie">
+						<header>
+							<h1 data-bind="title"></h1>
+						</header>
+						<main>
+							<section>
+								<em>Release date: <time data-bind="release_date"></time></em>
+								<p data-bind="plot"></p>
+							</section>
+							<section>
+								<h2>Actors</h2>
+								<ul data-bind="actors">
+									<li><span data-bind="actor_name"></span> <span data-bind="character"></span></li>
+								</ul>
+							</section>
+							<section>
+								<h2>Director</h2>
+								<ul data-bind="directors">
+									<li data-bind="name"></li>
+								</ul>
+							</section>							
+						</main>
+					</article>
+				</section>		
+			</section> <!-- end section specific movie. -->
 		</main>
 	
 
 	<!-- dependencies scripts. -->
   <script src="dependencies/routie/dist/routie.min.js"></script>
   <script src="dependencies/transparency/dist/transparency.min.js"></script>
+  <script src="dependencies/hammerjs/hammer.min.js"></script>
+  <script src="dependencies/underscore/underscore-min.js"></script>
 
 	<!-- app scripts. -->
   <script src="js/app.js"></script>

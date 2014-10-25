@@ -3,10 +3,187 @@
 // =====================================================================================
 
 
+// Loading.
+.loading {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #34495e;
+  z-index: 999;
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// States.
 [data-route] {
 	display: none;
 }
 
 .is-active {
 	display: block;
+}
+
+
+// Main navigation.
+.mainNav {
+  .column(12);
+  margin: 0;
+  width: 100%;
+  .u-nav {
+    border-bottom: @main-nav-border-width solid @main-nav-border-color;
+    background-color: @nav-bg-color;
+    a {color: @main-nav-link-color; &:hover{color: @main-nav-hover-link-color;}}
+  }
+  .u-nav-item {font-size: @main-nav-item-font-size;}
+}
+
+
+// About section.
+[data-bind$="itle"] {
+  .column(12);  
+  color: @heading-color;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+[data-bind="description"] {
+  .column(12);
+  margin-bottom: 30px;
+}
+
+
+// Movies section.
+  // .genreNav {
+  //   .column(12);
+  //   .u-nav-subnav {
+  //     background-color: @nav-bg-color; 
+  //     display: block; 
+  //     right: 140%; 
+  //     padding-left: 25%; 
+  //     transition: right 0.5s;
+  //     a {color: @main-nav-link-color; &:hover{color: @main-nav-hover-link-color;}}
+  //   }
+  //   .u-nav li:hover > .u-nav-subnav {right:-165%;}
+  //   .hamburgerIcon {
+  //     font-size: 60px;
+  //     color: #1abc9c;
+  //     padding: 0;
+  //   }
+  // }
+
+.movie {
+  .column(12);
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(210, 210, 210, 0.2);
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  h1 {
+    font-size: 22px;
+    margin: 10px 0;
+    // position: relative;
+    // transform: rotate(90deg);
+    // top: 205px;
+    // left: 105px;
+  }
+  img {
+    margin: 0 auto;
+  }
+  p{
+    margin-top: 10px;
+  }
+  aside {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+  }
+  .review {
+    margin-top: 0;
+    width: 50%;
+    float: left;
+    text-align: left;
+  }
+  [data-bind="details"] {
+    width: 50%;
+    float: right;
+    text-align: right;
+  }
+}
+
+
+// Details movie section.
+.detailsMovie {
+  text-align: center;
+  section {
+    .column(12);
+    h2 {color: @heading-color; text-align: center; margin-top: 30px;}
+  }
+}
+
+[data-bind="actor_name"] {
+  display: inline-block;
+  width: 44%;
+  text-align: right;
+}
+
+[data-bind="character"] {
+  display: inline-block;
+  width: 44%;
+  text-align: left;
+  margin-left: 10%;
+}
+
+[data-bind="name"] {
+  text-align: center;
+}
+
+
+// $ Small screen.
+@media only screen and (min-width: @small-screen) {
+  [data-bind="description"]:not(:nth-of-type(3)) {
+    .column(6);
+    margin-bottom: 30px;
+  }
+
+  .movie {
+    .column(6);
+    min-height: 575px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+}
+
+
+// $ Medium screen.
+@media only screen and (min-width: @medium-screen) {
+  [data-bind="description"] {
+    .column(4)!important;
+  }
+
+  .movie {
+    .column(4);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+}
+
+
+// $ Large screen.
+@media only screen and (min-width: @large-screen) {
+  .movie {
+    .column(3);
+    min-height: 610px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
 }

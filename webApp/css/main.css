@@ -1,1 +1,303 @@
-html{font-family:sans-serif;font-size:100%;line-height:1.4;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}ul,ol,dl,dd,blockquote,hr,table,form,fieldset,figure,address{margin:0}ul,ol{list-style-position:outside;padding-left:0;list-style:none}ul ul,ol ol,ul ol,ol ul{padding-left:1.25em}dt{font-weight:bold}dd{padding-left:1.25em}img,video,audio,embed,object{max-width:100%;height:auto;display:block}audio,canvas,img,video{vertical-align:middle}fieldset{border:1px solid #ccc;padding:1.375em}legend{border:0;padding:0;font-weight:bold}label{cursor:pointer;display:block;margin-bottom:.625em}select{background-color:#fafafa;height:2em}textarea{overflow:auto;resize:vertical}optgroup{font-weight:bold}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible;line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;padding:.625em 1.25em;border:1px solid transparent;background:#ccc}button[disabled],html input[disabled],select[disabled],textarea[disabled]{cursor:not-allowed;background-color:#eee;color:#ccc}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}input[type="text"],input[type="password"],input[type="email"],input[type="number"],input[type="tel"],input[type="time"],input[type="date"],input[type="datetime"],input[type="datetime-local"],input[type="week"],input[type="month"],input[type="search"],input[type="url"],select,textarea{display:block;width:100%;padding:.625em .375em;border:1px solid #ccc;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}input[type="text"]:focus,input[type="password"]:focus,input[type="email"]:focus,input[type="number"]:focus,input[type="tel"]:focus,input[type="time"]:focus,input[type="date"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,input[type="week"]:focus,input[type="month"]:focus,input[type="search"]:focus,input[type="url"]:focus,select:focus,button:focus,textarea:focus{border:1px solid #3498db;outline:0 none}table{border-collapse:collapse;border-spacing:0;max-width:100%;width:100%;empty-cells:show}table caption{font-weight:bold}table td,table th{padding:.625em;text-align:left}h1,h2,h3,h4,h5,h6{text-rendering:optimizeLegibility;font-weight:700;margin:0}h1{font-size:2.875em}h2{font-size:2.25em}h3{font-size:1.75em}h4{font-size:1.375em}h5{font-size:1.125em}h6{font-size:1em}p{text-rendering:optimizeLegibility;font-size:1em;margin:0 0 .625em}blockquote{padding-left:1.25em;font-size:1.125em;line-height:1.5}::-moz-selection{background:#b3d4fc;text-shadow:none}::selection{background:#b3d4fc;text-shadow:none}a{color:#3498db;text-decoration:none}a:active,a:hover{outline:0}a:hover,a:focus{color:#0c75bb}[data-route]{display:none}.is-active{display:block}
+html {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.4;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background-color: #f0f0f0;
+}
+ul,
+ol,
+dl,
+dd,
+blockquote,
+hr,
+table,
+form,
+fieldset,
+figure,
+address {
+  margin: 0;
+}
+ul,
+ol {
+  list-style-position: outside;
+  padding-left: 0;
+  list-style: none;
+}
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+  padding-left: 1.250em;
+}
+img,
+video,
+audio,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+audio,
+canvas,
+img,
+video {
+  vertical-align: middle;
+}
+body {
+  width: 100%;
+  *zoom: 1;
+}
+body:before,
+body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}
+h1,
+h2,
+h3 {
+  text-rendering: optimizeLegibility;
+  font-weight: 700;
+  margin: 0;
+}
+h1 {
+  font-size: 2.875em;
+}
+h2 {
+  font-size: 2.25em;
+}
+h3 {
+  font-size: 1.75em;
+}
+p {
+  text-rendering: optimizeLegibility;
+  font-size: 1em;
+  margin: 0 0 0.625em;
+}
+blockquote {
+  padding-left: 1.250em;
+  font-size: 1.125em;
+  line-height: 1.5;
+}
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+a:hover,
+a:focus {
+  color: #0c75bb;
+}
+.u-nav li {
+  position: relative;
+}
+.u-nav a {
+  padding: 0.875em;
+}
+.u-nav-item {
+  display: inline-block;
+}
+.u-nav-item a {
+  display: block;
+}
+.u-nav-subnav {
+  display: none;
+  z-index: 999;
+  min-width: 100%;
+  padding-left: 0;
+  position: absolute;
+}
+.u-nav-subnav a {
+  white-space: nowrap;
+}
+.u-nav li:hover > .u-nav-subnav {
+  display: block;
+}
+.loading {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #34495e;
+  z-index: 999;
+}
+.loading img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+[data-route] {
+  display: none;
+}
+.is-active {
+  display: block;
+}
+.mainNav {
+  display: inline;
+  float: left;
+  width: 97.91666667%;
+  margin: 0 1.04166667%;
+  margin: 0;
+  width: 100%;
+}
+.mainNav .u-nav {
+  border-bottom: 0.313em solid #2c3e50;
+  background-color: #34495e;
+}
+.mainNav .u-nav a {
+  color: #ecf0f1;
+}
+.mainNav .u-nav a:hover {
+  color: #1abc9c;
+}
+.mainNav .u-nav-item {
+  font-size: 1.75em;
+}
+[data-bind$="itle"] {
+  display: inline;
+  float: left;
+  width: 97.91666667%;
+  margin: 0 1.04166667%;
+  color: #1abc9c;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+[data-bind="description"] {
+  display: inline;
+  float: left;
+  width: 97.91666667%;
+  margin: 0 1.04166667%;
+  margin-bottom: 30px;
+}
+.movie {
+  display: inline;
+  float: left;
+  width: 97.91666667%;
+  margin: 0 1.04166667%;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(210, 210, 210, 0.2);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+.movie h1 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+.movie img {
+  margin: 0 auto;
+}
+.movie p {
+  margin-top: 10px;
+}
+.movie aside {
+  width: 90%;
+  position: absolute;
+  bottom: 0;
+}
+.movie .review {
+  margin-top: 0;
+  width: 50%;
+  float: left;
+  text-align: left;
+}
+.movie [data-bind="details"] {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+.detailsMovie {
+  text-align: center;
+}
+.detailsMovie section {
+  display: inline;
+  float: left;
+  width: 97.91666667%;
+  margin: 0 1.04166667%;
+}
+.detailsMovie section h2 {
+  color: #1abc9c;
+  text-align: center;
+  margin-top: 30px;
+}
+[data-bind="actor_name"] {
+  display: inline-block;
+  width: 44%;
+  text-align: right;
+}
+[data-bind="character"] {
+  display: inline-block;
+  width: 44%;
+  text-align: left;
+  margin-left: 10%;
+}
+[data-bind="name"] {
+  text-align: center;
+}
+@media only screen and (min-width: 35.563em) {
+  [data-bind="description"]:not(:nth-of-type(3)) {
+    display: inline;
+    float: left;
+    width: 47.91666667%;
+    margin: 0 1.04166667%;
+    margin-bottom: 30px;
+  }
+  .movie {
+    display: inline;
+    float: left;
+    width: 47.91666667%;
+    margin: 0 1.04166667%;
+    min-height: 575px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+@media only screen and (min-width: 48.063em) {
+  [data-bind="description"] {
+    display: inline !important;
+    float: left !important;
+    width: 31.25% !important;
+    margin: 0 1.04166667% !important;
+  }
+  .movie {
+    display: inline;
+    float: left;
+    width: 31.25%;
+    margin: 0 1.04166667%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (min-width: 64.063em) {
+  .movie {
+    display: inline;
+    float: left;
+    width: 22.91666667%;
+    margin: 0 1.04166667%;
+    min-height: 610px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

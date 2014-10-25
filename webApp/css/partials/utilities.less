@@ -1,0 +1,27 @@
+// =====================================================================================
+// $ Utilities
+// =====================================================================================
+
+// Navigation.
+.u-nav {
+  li {position: relative;}
+  a {padding: 0.875em;}
+}
+
+.u-nav-item {
+  display: inline-block;
+  a {display: block;}
+}
+
+.u-nav-subnav {
+  display: none;
+  z-index: 999;
+  min-width: 100%;
+  padding-left: 0;
+  position: absolute;
+  a {white-space: nowrap;}
+}
+
+.u-nav li:hover > .u-nav-subnav {
+  display: block;
+}
