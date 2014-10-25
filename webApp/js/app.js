@@ -164,7 +164,7 @@ var movieApp = movieApp || {};
 
 			var movieDetails = document.querySelector("[data-route='movie']");
 			var mc = new Hammer(movieDetails);
-			mc.on("panleft panright", function() {
+			mc.on("swipeleft swiperight", function() {
 				console.log("Can swipe this! oh-oh oh oh oh-oh-oh");
 				movieApp.sections.toggle("[data-route='movies']");
 			});
