@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Web App V2">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Favorite Movies</title>
+  	<link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+
+  	<div class="loading">
+  		<img class="loading__img" src="img/loading.svg">
+  	</div>
+
+		<header class="appHeader">
+			<nav>
+				<ul class="navigation">
+					<li><a href="#/about">About</a></li>
+					<li><a href="#/movies">&#10084; Movies</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			<section class="content" data-route="about">
+				<h1 class="page__title" data-bind="pageTitle"></h1>
+				<article class="about" data-bind="descriptions">
+					<p class="about__description" data-bind="description"></p>
+				</article>
+			</section> <!-- End section about. -->
+
+			<section class="panel" data-route="movies">
+				<section class="content movies" data-bind="myMovies">
+					<article class="movies__movie">
+						<header>
+							<h1 class="movie__title" data-bind="title"></h1>
+						</header>
+						<figure>
+							<img class="movie__cover"data-bind="movieCover">
+						</figure>
+						<p data-bind="simple_plot"></p>
+						<aside class="movie__aside">
+							<p class="review">Review: <span data-bind="reviews"></span></p>
+							<a data-bind="details">More details...</a>
+						</aside>
+					</article>
+				</section>		
+			</section> <!-- End section movies. -->
+
+			<section class="panel" data-route="movie">
+				<section class="content" data-bind="myMovies">
+					<article class="detailsMovie">
+						<header>
+							<h1 data-bind="title"></h1>
+						</header>
+						<main>
+							<section>
+								<em>Release date: <time data-bind="release_date"></time></em>
+								<p data-bind="plot"></p>
+							</section>
+							<section>
+								<h2>Actors</h2>
+								<ul data-bind="actors">
+									<li><span data-bind="actor_name"></span> <span data-bind="character"></span></li>
+								</ul>
+							</section>
+							<section>
+								<h2>Director</h2>
+								<ul data-bind="directors">
+									<li data-bind="name"></li>
+								</ul>
+							</section>							
+						</main>
+					</article>
+				</section>		
+			</section> <!-- End section movie details. -->
+		</main>
+	
+
+	<!-- Dependencies scripts. -->
+  <script src="dependencies/routie/dist/routie.min.js"></script>
+  <script src="dependencies/transparency/dist/transparency.min.js"></script>
+  <script src="dependencies/hammerjs/hammer.min.js"></script>
+  <script src="dependencies/underscore/underscore-min.js"></script>
+
+	<!-- App scripts. -->
+  <script src="js/app.js"></script>
+
+  </body>
+</html>
