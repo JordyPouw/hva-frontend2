@@ -54,6 +54,7 @@ var movieApp = movieApp || {};
 						else {
 							//loading.
 							console.log("loading");
+							document.querySelector(".loading").classList.add('is-active');
 						}
 					};
 
@@ -69,12 +70,17 @@ var movieApp = movieApp || {};
 	movieApp.localService = {
 
 		init: function(){
+			document.querySelector(".loading").classList.add('is-active');
+
 			var localMovies = JSON.parse(localStorage.getItem('movieAppData'));
 			for (var i = 0; i < localMovies.length; i++){
 				movieApp.content.movies.myMovies.push(localMovies[i]);
 			}
+
 			console.log(movieApp.content.movies.myMovies, 'gettingg it local babyyy');
 			Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+			
+			setTimeout(function(){document.querySelector(".loading").classList.remove('is-active');}, 1000);
 		}
 	};
 
@@ -133,30 +139,28 @@ var movieApp = movieApp || {};
 
 		movies: function(){
 			var self = this;
-			document.querySelector(".loading").classList.add('is-active');
 			movieApp.ajax.getData('GET', "http://dennistel.nl/movies/", self.moviesFetched);
 		},
 
-			moviesFetched: function(movies){
-				for (var i = 0; i < movies.length; i++){
-					movieApp.content.movies.myMovies.push(movies[i]);
-				}
-				console.log(movieApp.content.movies.myMovies, 'gettingg it from the server babyyy');
-				localStorage.setItem('movieAppData', JSON.stringify(movieApp.content.movies.myMovies));
-				movieApp.sections.combineReviews();
-				Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
-				setTimeout(function(){document.querySelector(".loading").classList.remove('is-active');}, 3000);
-			},
+		moviesFetched: function(movies){
+			for (var i = 0; i < movies.length; i++){
+				movieApp.content.movies.myMovies.push(movies[i]);
+			}
+
+			console.log(movieApp.content.movies.myMovies, 'gettingg it from the server babyyy');
+			localStorage.setItem('movieAppData', JSON.stringify(movieApp.content.movies.myMovies));
+			movieApp.sections.combineReviews();
+			Transparency.render(document.querySelector("[data-route='movies']"), movieApp.content.movies, movieApp.content.directives);
+			
+			setTimeout(function(){document.querySelector(".loading").classList.remove('is-active');}, 2500);
+		},
 
 		combineReviews: function(){
 
 				_.map(movieApp.content.movies.myMovies, function (movie, i){
 					movie.reviews   = _.reduce(movie.reviews,   function(memo, review){   return memo + review.score; }, 0) / movie.reviews.length;
-					// movie.directors = _.reduce(movie.directors, function(memo, director){ return memo + director.name + ' '; }, '');
-					// movie.actors    = _.reduce(movie.actors,    function(memo, actor){    return memo + actor.actor_name + ', ';}, '');
 					return movie;
 				});
-
 		},
 
 		movie: function(id){
@@ -175,6 +179,7 @@ var movieApp = movieApp || {};
 			for (i = 0; i < sections.length; i++){
 				sections[i].classList.remove('is-active');
 			}
+			
 			document.querySelector(section).classList.add('is-active');
 		}
 	};
