@@ -179,8 +179,16 @@ var movieApp = movieApp || {};
 			for (i = 0; i < sections.length; i++){
 				sections[i].classList.remove('is-active');
 			}
-			
+
 			document.querySelector(section).classList.add('is-active');
+
+			if (document.querySelector('.panel').classList.contains('is-active')) {
+				document.querySelector("body").style.overflowY="hidden";
+			}
+
+			else {
+				document.querySelector("body").style.overflowY="auto";
+			}
 		}
 	};
 
