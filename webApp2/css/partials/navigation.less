@@ -1,0 +1,31 @@
+.appHeader {
+  position: fixed;
+  width: 100%;
+  background: @nav-bg-color;
+  z-index: 3;
+}
+
+.navigation {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+}
+
+.navigation li:last-of-type a {
+  border-bottom: none;
+}
+
+.navigation a {
+  text-decoration: none;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  display: block;
+  padding: 10px;
+  color: @nav-item-color;
+}
+
+.navigation a:hover {
+  background: @nav-item-bg-color-is-hovered;
+}

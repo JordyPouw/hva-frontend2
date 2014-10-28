@@ -1,0 +1,60 @@
+@media all and (min-width: 769px) {
+  .navigation {
+    flex-flow: row wrap;
+  }
+  
+  .navigation a {
+    padding: 1em;
+    border-bottom: none;
+  }
+
+  .content {
+    top: 55px;
+  }
+
+  .about {
+    flex-flow: row wrap;
+  }
+
+  .about__description {
+    width: 50%;
+  }
+
+  .movies {
+    flex-flow: row wrap;
+  }
+
+  .movies__movie {
+    width: 49.5%;
+  }
+
+  .movieDetails {
+    padding: 0 50px;
+  }
+
+  .movieDetails__title {
+    font-size: 72px;
+  }
+
+  .movieDetails__subtitle {
+    font-size: 42px;
+  }
+}
+
+@media all and (min-width: 1025px) {
+  .navigation {
+    justify-content: flex-end;
+  }
+
+  .about__description {
+    width: 33%;
+  }
+
+  .movies__movie {
+    width: 33%;
+  } 
+
+  .movieDetails {
+    padding: 0 150px;
+  }
+}

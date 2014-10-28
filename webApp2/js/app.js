@@ -9,9 +9,9 @@ var movieApp = movieApp || {};
 		about: {
 			pageTitle: "About this app",
 			descriptions: [
-				{description: "This single-page application is made during the Frontend 2 course for my study. It is written in Object Oriented Javascript and uses the MVC pattern. It uses the movies API from Dennis Tel. The data is stored locally using HTML5 localStorage."},
-				{description: "The app is written in vanilla JavaScript and a couple of plug-ins. These plug-ins are routie.js to create the router, and transparency as templating engine. Its styling is written with LESS."},
-				{description: "Ipsa quasi minima enim ut, dolor dolores rem commodi, id quo quam nam."},
+				{description: "This single-page application is created during the Frontend 2 course for my study. It is written in Object Oriented Javascript and uses the MVC pattern. The data that is used comes from the movies API from Dennis Tel. The data is stored locally using HTML5 localStorage."},
+				{description: "The app is written in vanilla JavaScript and a couple of plug-ins. These plug-ins are Routie.js to create the router, Transparency.js as a templating engine, Hammer.js to handle a swipe gesture and Underscore.js to manipulate the data. The styling is written with the CSS extension: LESS."},
+				{description: "Besides these things I use the CSS3 Flexbox for the layout. Used an animated SVG as loading feedback. Installed dependencies with Bower and used Grunt to auto-compile LESS to CSS."},
 			]
 		},
 
@@ -111,7 +111,7 @@ var movieApp = movieApp || {};
 				},
 
 				'/movies/:id': function(id) {
-					console.log("specific movie");
+					console.log("movie details");
 					movieApp.sections.movie(id);
 					movieApp.sections.toggle("[data-route='movie']");
 				},
@@ -156,9 +156,9 @@ var movieApp = movieApp || {};
 		},
 
 		combineReviews: function(){
-
-				_.map(movieApp.content.movies.myMovies, function (movie, i){
-					movie.reviews   = _.reduce(movie.reviews,   function(memo, review){   return memo + review.score; }, 0) / movie.reviews.length;
+				// underscore.js: manipulate reviews data.
+				_.map(movieApp.content.movies.myMovies, function (movie){
+					movie.reviews = _.reduce(movie.reviews, function(memo, review){ return memo + review.score; }, 0) / movie.reviews.length;
 					return movie;
 				});
 		},
@@ -182,7 +182,7 @@ var movieApp = movieApp || {};
 
 			document.querySelector(section).classList.add('is-active');
 
-			if (document.querySelector('.panel').classList.contains('is-active')) {
+			if (document.querySelector(section).classList.contains('panel')) {
 				document.querySelector("body").style.overflowY="hidden";
 			}
 
