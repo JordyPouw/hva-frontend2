@@ -6,13 +6,13 @@
   position: absolute;
   background-color: #222;
   box-shadow: 0px 4px 7px rgba(0,0,0,0.5);
-  margin-top: -180%;
+  transform: translateY(-180%);
   z-index:2;
   transition: all .6s ease-in-out;
 }
 
 .panel.is-active {
-  margin-top: 0%;
+  transform: translateY(0);
   background-color: @base-bg-color;
 }
 
