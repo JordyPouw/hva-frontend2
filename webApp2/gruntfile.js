@@ -5,19 +5,22 @@ module.exports = function(grunt) {
     less: {
       options: {
         compress: true,
-        cleancss: true
-     },
-     files: {
-       "/css/main.css": "/css/main.less"
-     }
+        cleancss: true,
+        paths: ["css"]
+      },
+      src: {
+          expand: true,
+          cwd: "css",
+          src: "*.less",
+          dest: "css",
+          ext: ".css"
+        }
     },
+
     watch: {
-      styles: {
-        options: {
-          spawn: false
-        },
-        files: [ "/css/*.css", "/css/*.less"],
-        tasks: [ "less" ]
+      css: {
+        files: "css/*.less",
+        tasks: ["less"]
       }
     }
   });
